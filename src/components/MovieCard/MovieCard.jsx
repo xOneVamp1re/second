@@ -1,11 +1,28 @@
 'use client'
 
 import PropTypes from 'prop-types'
+import { format } from 'date-fns'
 
-import CardInfo from './CardInfo'
+import getBorderColor from '../../utils/getBorderColor'
+import truncate from '../../utils/truncate'
+
+import CardInfoTagList from './CardInfoTagList'
+import CardInfoRating from './CardInfoRating'
 import styles from './MovieCard.module.css'
 
 const MovieCard = ({ title, poster_path, ...props }) => {
+  const { vote_average, overview, release_date, id, rating, genre_ids, isRatedList } = props
+
+  const formattedReleaseDate = (release_date) => {
+    if (release_date) {
+      const date = format(new Date(release_date), 'MMMM dd, yyyy')
+      return date
+    } else return 'Release date not'
+  }
+  const borderColor = isRatedList ? getBorderColor(rating) : getBorderColor(vote_average)
+  const truncatedTitle = title.length > 40 ? title.slice(0, 40).slice(0, -6) + '...' : title
+  const truncatedOverview = truncate(overview, truncatedTitle)
+
   return (
     <li className={styles['list-item']}>
       <div className={styles['card']}>
@@ -14,7 +31,16 @@ const MovieCard = ({ title, poster_path, ...props }) => {
           src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : '/notFound.jpg'}
           alt={`Изображение фильма ${title}`}
         />
-        <CardInfo {...props} title={title} />
+        <div className={styles['card-info-title']}>
+          <h5 className={styles['card-info-title-text']}>{truncatedTitle}</h5>
+          <div className={`${styles['card-info-title-rating']} ${styles[borderColor]}`}>
+            {isRatedList ? rating : vote_average.toFixed(1)}
+          </div>
+        </div>
+        <p className={styles['card-info-realese-date']}>{formattedReleaseDate(release_date)}</p>
+        <CardInfoTagList genre_ids={genre_ids} />
+        <p className={styles['card-info-description']}>{truncatedOverview}</p>
+        <CardInfoRating id={id} isRatedList={isRatedList} rating={rating} />
       </div>
     </li>
   )
@@ -23,6 +49,13 @@ const MovieCard = ({ title, poster_path, ...props }) => {
 MovieCard.propTypes = {
   title: PropTypes.string.isRequired,
   poster_path: PropTypes.string,
+  vote_average: PropTypes.number,
+  overview: PropTypes.string,
+  release_date: PropTypes.string,
+  id: PropTypes.number,
+  rating: PropTypes.number,
+  genre_ids: PropTypes.arrayOf(PropTypes.number),
+  isRatedList: PropTypes.bool,
 }
 
 export default MovieCard

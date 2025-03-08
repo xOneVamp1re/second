@@ -9,8 +9,8 @@ const Loader = () => {
       justify="center"
       style={{
         height: '100vh',
-        marginTop: '-60px',
-        backgroundColor: 'rgba(255, 255, 255)',
+        maxWidth: '1010px',
+        margin: '0 auto',
       }}>
       <Spin
         indicator={

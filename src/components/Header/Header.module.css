@@ -1,4 +1,6 @@
 .header {
   max-width: 1010px;
   margin: 0 auto;
+  padding: 20px;
+  background-color: var(--accent-bg);
 }

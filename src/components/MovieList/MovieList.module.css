@@ -1,9 +1,31 @@
-.movieList {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  max-width: 1010px;
-  margin: 0 auto;
-  padding: 40px;
-  gap: 37px 16px;
+@media (width >= 320px) {
+  .movielist {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto;
+    padding: 0 16px 20px;
+    overflow: hidden;
+    background-color: var(--accent-bg);
+    gap: 20px;
+  }
+}
+
+@media (width >= 768px) {
+  .movielist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto;
+    padding: 0 20px 20px;
+    gap: 20px 10px;
+  }
+}
+
+@media (width >= 1024px) {
+  .movielist {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1010px;
+    margin: 0 auto;
+    gap: 40px;
+  }
 }

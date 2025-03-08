@@ -40,7 +40,7 @@ const CardInfoRating = ({ rating, id, isRatedList }) => {
 
   return (
     <Rate
-      className={styles['card-info-rating--star']}
+      className={styles['card-info-rating-star']}
       style={{
         fontSize: '18px',
       }}

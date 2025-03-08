@@ -71,7 +71,7 @@ const SearchList = ({ inputValue, activeTab }) => {
           style={{ margin: '0 auto', maxWidth: '500px', marginTop: '100px' }}
         />
       )}
-      {hasFetched && moviesData.length === 0 && !error && inputValue && (
+      {hasFetched && moviesData.length === 0 && !error && inputValue && !isLoading && (
         <p
           style={{
             margin: '0 auto',
@@ -89,6 +89,9 @@ const SearchList = ({ inputValue, activeTab }) => {
           align="center"
           total={totalPages}
           onChange={handlePageChange}
+          style={{
+            marginTop: '2rem',
+          }}
         />
       )}
     </>

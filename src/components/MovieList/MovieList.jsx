@@ -15,7 +15,7 @@ const MovieList = ({ moviesData, isRatedList }) => {
 
   return (
     <>
-      <ul className={styles.movieList}>
+      <ul className={styles.movielist}>
         {movies.map((movie) => {
           return <MovieCard key={movie.id} {...movie} isRatedList={isRatedList} />
         })}
