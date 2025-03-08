@@ -1,0 +1,9 @@
+.movieList {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 1010px;
+  margin: 0 auto;
+  padding: 40px;
+  gap: 37px 16px;
+}
