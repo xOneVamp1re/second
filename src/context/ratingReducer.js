@@ -1,3 +1,5 @@
+'use client'
+
 const SET_RATING = 'SET_RATING'
 const INITIAL_RATING = 0.0
 const initialState = JSON.parse(localStorage.getItem('movieRatings') || '{}')
