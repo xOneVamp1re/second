@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react'
 import { Pagination, Alert } from 'antd'
 import PropTypes from 'prop-types'
 
-import { useMyAppContext } from '../../context/AppContextProvider'
 import { fetchMovies } from '../../API/fetchMovies'
-import fetchRatedMovies from '../../API/fetchRatedMovies'
 import checkForErrors from '../../utils/checkForErrors'
 import Loader from '../Loader/Loader'
 import MovieList from '../MovieList/MovieList'
@@ -15,11 +13,10 @@ const SearchList = ({ inputValue, activeTab }) => {
   const [moviesData, setMoviesData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [hasFetched, setHasFetched] = useState(false)
-  const [totalPages, setTotalPages] = useState(null)
+  const [totalResults, setTotalResults] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [error, setError] = useState(null)
   const [isRatedList] = useState(false)
-  const { sessionId } = useMyAppContext()
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -30,22 +27,9 @@ const SearchList = ({ inputValue, activeTab }) => {
       try {
         setIsLoading(true)
         const moviesData = await fetchMovies(inputValue, currentPage)
-        const ratedData = await fetchRatedMovies(sessionId)
         !moviesData.data && checkForErrors(moviesData.error)
-        if (ratedData.data !== null) {
-          const moviesArr = moviesData.data.map((movie) => {
-            const rated = ratedData.data.find((rated) => rated.id === movie.id)
-            return {
-              ...movie,
-              rating: rated ? rated.rating : 0.0,
-            }
-          })
-          setMoviesData(moviesArr)
-          setTotalPages(moviesData.totalPages)
-        } else {
-          setMoviesData(moviesData.data)
-          setTotalPages(moviesData.totalPages)
-        }
+        setMoviesData(moviesData.data)
+        setTotalResults(moviesData.totalResults)
       } catch (error) {
         setError(error)
       } finally {
@@ -55,6 +39,7 @@ const SearchList = ({ inputValue, activeTab }) => {
     }
     fetchData()
   }, [inputValue, currentPage, activeTab])
+
   return (
     <>
       {isLoading && inputValue ? (
@@ -82,12 +67,15 @@ const SearchList = ({ inputValue, activeTab }) => {
           Увы, результатов по вашему запросу не найдено
         </p>
       )}
-      {totalPages > 1 && !isLoading && (
+      {!isLoading && (
         <Pagination
+          total={totalResults}
           defaultCurrent={1}
+          hideOnSinglePage={true}
+          pageSize={20}
           current={currentPage}
           align="center"
-          total={totalPages}
+          showSizeChanger={false}
           onChange={handlePageChange}
           style={{
             marginTop: '2rem',

@@ -7,8 +7,6 @@ import Header from '../Header/Header'
 import SearchList from '../SearchList/SearchList'
 import RatedList from '../RatedList/RatedList'
 
-// import styles from './MovieApp.module.css'
-
 function moviesApp() {
   const [activeTab, setActiveTabs] = useState('search')
   const [inputValue, setInputValue] = useState('')

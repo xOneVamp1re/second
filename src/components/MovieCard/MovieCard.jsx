@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 import { format } from 'date-fns'
 
@@ -10,17 +11,22 @@ import CardInfoTagList from './CardInfoTagList'
 import CardInfoRating from './CardInfoRating'
 import styles from './MovieCard.module.css'
 
-const MovieCard = ({ title, poster_path, ...props }) => {
-  const { vote_average, overview, release_date, id, rating, genre_ids, isRatedList } = props
+const formatReleaseDate = (release_date) => {
+  if (release_date) {
+    const date = format(new Date(release_date), 'MMMM dd, yyyy')
+    return date
+  } else return 'Release date not'
+}
 
-  const formattedReleaseDate = (release_date) => {
-    if (release_date) {
-      const date = format(new Date(release_date), 'MMMM dd, yyyy')
-      return date
-    } else return 'Release date not'
-  }
-  const borderColor = isRatedList ? getBorderColor(rating) : getBorderColor(vote_average)
-  const truncatedTitle = title.length > 40 ? title.slice(0, 40).slice(0, -6) + '...' : title
+const formatTitle = (title) => {
+  return title.length > 40 ? title.slice(0, 40).slice(0, -6) + '...' : title
+}
+
+const MovieCard = ({ title, poster_path, ...props }) => {
+  const { vote_average, overview, release_date, id, genre_ids, isRatedList } = props
+
+  const borderColor = getBorderColor(vote_average)
+  const truncatedTitle = formatTitle(title)
   const truncatedOverview = truncate(overview, truncatedTitle)
 
   return (
@@ -33,14 +39,12 @@ const MovieCard = ({ title, poster_path, ...props }) => {
         />
         <div className={styles['card-info-title']}>
           <h5 className={styles['card-info-title-text']}>{truncatedTitle}</h5>
-          <div className={`${styles['card-info-title-rating']} ${styles[borderColor]}`}>
-            {isRatedList ? rating : vote_average.toFixed(1)}
-          </div>
+          <div className={`${styles['card-info-title-rating']} ${styles[borderColor]}`}>{vote_average.toFixed(1)}</div>
         </div>
-        <p className={styles['card-info-realese-date']}>{formattedReleaseDate(release_date)}</p>
+        <p className={styles['card-info-realese-date']}>{formatReleaseDate(release_date)}</p>
         <CardInfoTagList genre_ids={genre_ids} />
         <p className={styles['card-info-description']}>{truncatedOverview}</p>
-        <CardInfoRating id={id} isRatedList={isRatedList} rating={rating} />
+        <CardInfoRating id={id} isRatedList={isRatedList} />
       </div>
     </li>
   )
@@ -53,9 +57,22 @@ MovieCard.propTypes = {
   overview: PropTypes.string,
   release_date: PropTypes.string,
   id: PropTypes.number,
-  rating: PropTypes.number,
   genre_ids: PropTypes.arrayOf(PropTypes.number),
   isRatedList: PropTypes.bool,
 }
 
-export default MovieCard
+const MemoizedMovieCard = memo(MovieCard, (prevProps, nextProps) => {
+  return (
+    prevProps.title === nextProps.title &&
+    prevProps.poster_path === nextProps.poster_path &&
+    prevProps.vote_average === nextProps.vote_average &&
+    prevProps.overview === nextProps.overview &&
+    prevProps.release_date === nextProps.release_date &&
+    prevProps.id === nextProps.id &&
+    prevProps.isRatedList === nextProps.isRatedList &&
+    prevProps.genre_ids?.length === nextProps.genre_ids?.length &&
+    prevProps.genre_ids?.every((id, index) => id === nextProps.genre_ids[index])
+  )
+})
+
+export default MemoizedMovieCard

@@ -18,7 +18,7 @@ export const fetchMovies = async (inputValue, currentPage) => {
       throw error
     }
     const data = await response.json()
-    return { data: data.results, totalPages: data.total_pages, error: null }
+    return { data: data.results, totalResults: data.total_results, error: null }
   } catch (error) {
     return { data: null, error: { message: error.message, status: error.status || null } }
   }

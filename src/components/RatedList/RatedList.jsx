@@ -13,7 +13,7 @@ import MovieList from '../MovieList/MovieList'
 const RatedList = ({ activeTab }) => {
   const [ratedData, setRatedData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(null)
+  const [totalResults, setTotalResults] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [hasFetched, setHasFetched] = useState(false)
   const [error, setError] = useState(null)
@@ -28,10 +28,10 @@ const RatedList = ({ activeTab }) => {
     const fetchRated = async () => {
       try {
         setIsLoading(true)
-        const ratedData = await fetchRatedMovies(sessionId)
+        const ratedData = await fetchRatedMovies(sessionId, currentPage)
         !ratedData.data && checkForErrors(ratedData.error)
         setRatedData(ratedData.data)
-        setTotalPages(ratedData.totalPages)
+        setTotalResults(ratedData.totalResults)
       } catch (error) {
         setError(error)
       } finally {
@@ -40,7 +40,8 @@ const RatedList = ({ activeTab }) => {
       }
     }
     fetchRated()
-  }, [currentPage, activeTab])
+  }, [currentPage, activeTab, sessionId])
+
   return (
     <>
       {isLoading ? (
@@ -68,8 +69,20 @@ const RatedList = ({ activeTab }) => {
           style={{ margin: '0 auto', maxWidth: '500px', marginTop: '100px' }}
         />
       )}
-      {totalPages > 1 && !isLoading && (
-        <Pagination defaultCurrent={1} align="center" total={totalPages} onChange={handlePageChange} />
+      {!isLoading && (
+        <Pagination
+          total={totalResults}
+          defaultCurrent={1}
+          hideOnSinglePage={true}
+          align="center"
+          pageSize={20}
+          current={currentPage}
+          showSizeChanger={false}
+          onChange={handlePageChange}
+          style={{
+            marginTop: '2rem',
+          }}
+        />
       )}
     </>
   )

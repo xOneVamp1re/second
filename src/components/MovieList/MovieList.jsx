@@ -1,32 +1,31 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import MovieCard from '../MovieCard/MovieCard'
 
 import styles from './MovieList.module.css'
 
-const MovieList = ({ moviesData, isRatedList }) => {
-  const [movies, setMovies] = useState([])
-  useEffect(() => {
-    setMovies(moviesData)
-  }, [moviesData])
-
-  return (
-    <>
-      <ul className={styles.movielist}>
-        {movies.map((movie) => {
-          return <MovieCard key={movie.id} {...movie} isRatedList={isRatedList} />
-        })}
-      </ul>
-    </>
-  )
-}
+const MovieList = ({ moviesData, isRatedList }) => (
+  <ul className={styles.movielist}>
+    {moviesData.map((movie) => (
+      <MovieCard key={movie.id} {...movie} isRatedList={isRatedList} />
+    ))}
+  </ul>
+)
 
 MovieList.propTypes = {
   moviesData: PropTypes.arrayOf(PropTypes.object).isRequired,
   isRatedList: PropTypes.bool.isRequired,
 }
 
-export default MovieList
+const MemoizedMovieList = memo(MovieList, (prevProps, nextProps) => {
+  return (
+    prevProps.isRatedList === nextProps.isRatedList &&
+    prevProps.moviesData.length === nextProps.moviesData.length &&
+    prevProps.moviesData.every((movie, index) => movie.id === nextProps.moviesData[index].id)
+  )
+})
+
+export default MemoizedMovieList
