@@ -13,7 +13,9 @@ const AppContext = createContext()
 const AppContextProvider = ({ children }) => {
   const [genres, setGenres] = useState([])
   const [sessionId, setSessionId] = useState(null)
-  const [ratingState, dispatch] = useReducer(ratingReducer)
+  const [ratingState, dispatch] = useReducer(ratingReducer, () => {
+    JSON.parse(localStorage.getItem('movieRatings') || '{}')
+  })
 
   useEffect(() => {
     const getGenres = async () => {
