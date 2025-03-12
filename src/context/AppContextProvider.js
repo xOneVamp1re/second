@@ -14,8 +14,10 @@ const AppContextProvider = ({ children }) => {
   const [genres, setGenres] = useState([])
   const [sessionId, setSessionId] = useState(null)
   const [ratingState, dispatch] = useReducer(ratingReducer, () => {
-    JSON.parse(localStorage.getItem('movieRatings') || '{}')
+    const savedRatings = localStorage.getItem('movieRatings')
+    return savedRatings ? JSON.parse(savedRatings) : {}
   })
+  console.log(ratingState)
 
   useEffect(() => {
     const getGenres = async () => {
@@ -24,7 +26,6 @@ const AppContextProvider = ({ children }) => {
     }
 
     getGenres()
-    const savedSessionId = localStorage.getItem('sessionID')
 
     const getSessionId = async () => {
       const newSessionId = await fetchSessionId()
@@ -35,8 +36,7 @@ const AppContextProvider = ({ children }) => {
         console.log('Error fetching session ID')
       }
     }
-
-    savedSessionId ? setSessionId(savedSessionId) : getSessionId()
+    getSessionId()
   }, [])
 
   return <AppContext.Provider value={{ genres, sessionId, ratingState, dispatch }}>{children}</AppContext.Provider>

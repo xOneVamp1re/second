@@ -1,6 +1,5 @@
 'use client'
 
-import { memo } from 'react'
 import PropTypes from 'prop-types'
 
 import MovieCard from '../MovieCard/MovieCard'
@@ -20,12 +19,4 @@ MovieList.propTypes = {
   isRatedList: PropTypes.bool.isRequired,
 }
 
-const MemoizedMovieList = memo(MovieList, (prevProps, nextProps) => {
-  return (
-    prevProps.isRatedList === nextProps.isRatedList &&
-    prevProps.moviesData.length === nextProps.moviesData.length &&
-    prevProps.moviesData.every((movie, index) => movie.id === nextProps.moviesData[index].id)
-  )
-})
-
-export default MemoizedMovieList
+export default MovieList

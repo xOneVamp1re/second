@@ -1,6 +1,5 @@
 'use client'
 
-import { memo } from 'react'
 import PropTypes from 'prop-types'
 import { format } from 'date-fns'
 
@@ -61,18 +60,4 @@ MovieCard.propTypes = {
   isRatedList: PropTypes.bool,
 }
 
-const MemoizedMovieCard = memo(MovieCard, (prevProps, nextProps) => {
-  return (
-    prevProps.title === nextProps.title &&
-    prevProps.poster_path === nextProps.poster_path &&
-    prevProps.vote_average === nextProps.vote_average &&
-    prevProps.overview === nextProps.overview &&
-    prevProps.release_date === nextProps.release_date &&
-    prevProps.id === nextProps.id &&
-    prevProps.isRatedList === nextProps.isRatedList &&
-    prevProps.genre_ids?.length === nextProps.genre_ids?.length &&
-    prevProps.genre_ids?.every((id, index) => id === nextProps.genre_ids[index])
-  )
-})
-
-export default MemoizedMovieCard
+export default MovieCard

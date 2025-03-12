@@ -1,7 +1,5 @@
 @media (width >= 320px) {
   .list-item {
-    max-width: 388px;
-    max-height: 245px;
     font-family: var(--font-inter);
     font-size: 12px;
     line-height: 22px;
@@ -9,13 +7,16 @@
 
   .card {
     display: grid;
-    grid-template: auto auto auto minmax(90px, 1fr) / 100px 1fr;
+    grid-template: auto auto auto minmax(90px, 1fr) / 70px 1fr;
     grid-template-areas:
       'img title'
       'img date'
       'img tags'
       'desc desc'
       'rate rate';
+    justify-content: center;
+    max-width: 388px;
+    max-height: 245px;
     transition:
       box-shadow 0.2s,
       border-color 0.2s;
@@ -34,8 +35,11 @@
 
   .card-img {
     grid-area: img;
-    width: 100px;
-    height: 120px;
+    place-self: center end;
+    width: 60px;
+    height: 91px;
+    padding-top: 6px;
+    object-fit: cover;
   }
 
   .card-info-title {
@@ -113,6 +117,7 @@
   .card-img {
     width: 185px;
     height: 280px;
+    padding: 0;
   }
 
   .card {
@@ -125,6 +130,8 @@
       'img desc'
       'img rate';
     row-gap: 7px;
+    max-width: 451px;
+    max-height: 280px;
   }
 
   .card-info-title {
