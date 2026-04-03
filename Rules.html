@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Шпаргалка: Чем и что мазать в машине</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #dde9d4;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 16px 12px 40px 12px;
+            color: #1a2e17;
+        }
+
+        /* главная карточка */
+        .main-card {
+            max-width: 100%;
+            background: #ffffff;
+            border-radius: 44px;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            padding: 22px 18px 32px 18px;
+            transition: all 0.2s;
+        }
+
+        /* заголовок */
+        .hero {
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: 1.9rem;
+            font-weight: 780;
+            letter-spacing: -0.3px;
+            color: #2a5727;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 10px;
+            line-height: 1.2;
+        }
+        .hero-badge {
+            background: #f3a333;
+            font-size: 1.5rem;
+            padding: 0 12px;
+            border-radius: 60px;
+            display: inline-block;
+            color: #2c2c1c;
+        }
+        .sub-line {
+            color: #4a6b40;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            border-left: 4px solid #e67e22;
+            padding-left: 14px;
+        }
+
+        /* таблица с прокруткой (мобильная адаптация) */
+        .table-scroll {
+            overflow-x: auto;
+            margin: 22px 0 30px 0;
+            border-radius: 28px;
+            border: 1px solid #ddecd2;
+            background: #ffffff;
+            -webkit-overflow-scrolling: touch;
+        }
+        .cheat-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            min-width: 590px;
+        }
+        .cheat-table th {
+            background-color: #1d551a;
+            color: white;
+            font-weight: 650;
+            padding: 14px 10px;
+            font-size: 0.88rem;
+            text-align: left;
+            border-right: 1px solid #42833b;
+        }
+        .cheat-table th:last-child {
+            border-right: none;
+        }
+        .cheat-table td {
+            border-bottom: 1px solid #e5f0dd;
+            padding: 13px 10px;
+            vertical-align: top;
+            background-color: #fefef7;
+            line-height: 1.4;
+        }
+        .cheat-table tr:last-child td {
+            border-bottom: none;
+        }
+        .cheat-table td:first-child {
+            font-weight: 680;
+            background-color: #fafef5;
+            color: #1f461c;
+        }
+        .danger-warning {
+            color: #bc2f1c;
+            font-weight: 500;
+        }
+        .note-tag {
+            background: #fff1e0;
+            font-size: 0.7rem;
+            padding: 2px 7px;
+            border-radius: 30px;
+            white-space: nowrap;
+        }
+
+        /* 3 золотых правила — карточки для пальцев */
+        .gold-section {
+            background: #fff9ef;
+            border-radius: 34px;
+            padding: 22px 18px;
+            margin: 8px 0 12px;
+            border: 1px solid #fee2bc;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+        }
+        .gold-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.55rem;
+            font-weight: 730;
+            color: #b45b1a;
+            margin-bottom: 20px;
+        }
+        .gold-title span {
+            font-size: 1.9rem;
+        }
+        .rule-box {
+            background: white;
+            border-radius: 28px;
+            padding: 15px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            transition: background 0.1s;
+        }
+        .rule-box:last-child {
+            margin-bottom: 0;
+        }
+        .rule-number {
+            background: #e67e22;
+            color: white;
+            font-weight: 800;
+            width: 30px;
+            height: 30px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.95rem;
+            margin-top: 2px;
+        }
+        .rule-text {
+            flex: 1;
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+        .rule-text strong {
+            color: #c95f0c;
+        }
+
+        /* нижний блок с полезными фишками */
+        .footer-tips {
+            margin-top: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            border-top: 1px solid #e2f0d9;
+            padding-top: 24px;
+        }
+        .chip {
+            background: #ecf6e4;
+            border-radius: 60px;
+            padding: 6px 16px;
+            font-size: 0.72rem;
+            font-weight: 530;
+            color: #2c5c26;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.2px;
+        }
+
+        /* улучшения для маленьких экранов */
+        @media (max-width: 500px) {
+            body {
+                padding: 12px 10px 32px 10px;
+            }
+            .main-card {
+                padding: 18px 14px 26px 14px;
+            }
+            .hero h1 {
+                font-size: 1.55rem;
+            }
+            .hero-badge {
+                font-size: 1.25rem;
+                padding: 0 8px;
+            }
+            .cheat-table td, .cheat-table th {
+                padding: 10px 8px;
+            }
+            .rule-box {
+                padding: 12px 12px;
+            }
+            .gold-title {
+                font-size: 1.35rem;
+            }
+        }
+
+        /* легкие нажатия */
+        .rule-box:active {
+            background-color: #fef7e8;
+        }
+    </style>
+</head>
+<body>
+<div class="main-card">
+    <div class="hero">
+        <h1>
+            🛠 Шпаргалка:
+            <span class="hero-badge">Чем и что мазать</span>
+        </h1>
+        <div class="sub-line">В машине — профессиональный подход без ошибок</div>
+    </div>
+
+    <!-- адаптивная таблица с горизонтальным скроллом -->
+    <div class="table-scroll">
+        <table class="cheat-table">
+            <thead>
+                <tr>
+                    <th>Средство</th>
+                    <th>КУДА мазать / брызгать</th>
+                    <th>ЗАЧЕМ это делать</th>
+                    <th>ГЛАВНОЕ правило</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 1. Очиститель тормозов -->
+                <tr>
+                    <td>1. Очиститель тормозов (Kerry KR-965)</td>
+                    <td>Тормозные диски, любые грязные железки, руки от мазута</td>
+                    <td>Быстро смыть масло, жир и грязь. Обезжирить перед склеиванием</td>
+                    <td><span class="danger-warning">Не лить на салонный пластик</span> — может оставить пятна!</td>
+                </tr>
+                <!-- 2. WD-40 -->
+                <tr>
+                    <td>2. WD-40 (Сине-желтый баллон)</td>
+                    <td>Закисшие болты, скрипучие петли дверей, замки (если замерзли)</td>
+                    <td>Чтобы открутилось или временно перестало скрипеть</td>
+                    <td>Это <strong>не постоянная смазка</strong>, она быстро испаряется.</td>
+                </tr>
+                <!-- 3. Силиконовая смазка -->
+                <tr>
+                    <td>3. Силиконовая смазка (Kerry KR-941)</td>
+                    <td>Резиновые уплотнители дверей/багажника, пластик салона</td>
+                    <td>Чтобы двери не примерзали зимой и резинки не трескались</td>
+                    <td>Идеальна для всего, что сделано из резины и мягкого пластика.</td>
+                </tr>
+                <!-- 4. Алюминиевая смазка -->
+                <tr>
+                    <td>4. Алюминиевая смазка (Kerry KR-947)</td>
+                    <td>Резьба болтов (колесных, подвески), ступица под диском</td>
+                    <td>Чтобы болты не прикипели и легко открутились через год</td>
+                    <td>Самая «сильная» для металла. <span class="danger-warning">Не мазать на резинки!</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- БЛОК 3 золотых правила (из практики) -->
+    <div class="gold-section">
+        <div class="gold-title">
+            <span>💡</span> 3 золотых правила из практики:
+        </div>
+        <div class="rule-box">
+            <div class="rule-number">1</div>
+            <div class="rule-text"><strong>Сначала чистим — потом мажем:</strong> Сначала залейте грязный болт <strong>Очистителем</strong>, протрите тряпкой, и только потом наносите <strong>Алюминиевую смазку</strong>.</div>
+        </div>
+        <div class="rule-box">
+            <div class="rule-number">2</div>
+            <div class="rule-text"><strong>Берегите тормоза:</strong> Если случайно брызнули Смазкой или WD-40 на тормозной диск — немедленно залейте его <strong>Очистителем тормозов</strong> и протрите насухо. Иначе машина не затормозит!</div>
+        </div>
+        <div class="rule-box">
+            <div class="rule-number">3</div>
+            <div class="rule-text"><strong>Зимний ритуал:</strong> После каждой мойки зимой обязательно протирайте резинки дверей <strong>Силиконом</strong>. Это спасет вас от прыжков вокруг машины утром.</div>
+        </div>
+    </div>
+
+    <!-- полезные напоминания -->
+    <div class="footer-tips">
+        <div class="chip">🧴 Сначала тест на незаметном участке</div>
+        <div class="chip">🔧 Пластик салона — только силикон!</div>
+        <div class="chip">❄️ Зимой WD-40 + очиститель — спасение</div>
+        <div class="chip">🧽 Не смешивать без нужды</div>
+    </div>
+</div>
+</body>
+</html>
